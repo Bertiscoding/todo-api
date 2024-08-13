@@ -6,4 +6,4 @@ var Status;
     Status["todo"] = "toDo";
     Status["inProgress"] = "inProgress";
     Status["completed"] = "completed";
-})(Status || (exports.Status = Status = {}));
+})(Status = exports.Status || (exports.Status = {}));
