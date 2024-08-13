@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createValidator = void 0;
+exports.deleteValidator = exports.updateValidator = exports.createValidator = void 0;
 const express_validator_1 = require("express-validator");
 const Priority_1 = require("../enums/Priority");
 const Status_1 = require("../enums/Status");
@@ -29,5 +29,27 @@ exports.createValidator = [
     (0, express_validator_1.body)("status")
         .trim()
         .isIn([Status_1.Status.todo, Status_1.Status.inProgress, Status_1.Status.completed])
-        .withMessage("Status can only be to do, in progress or completed.")
+        .withMessage("Status can only be to do, in progress or completed")
+];
+exports.updateValidator = [
+    (0, express_validator_1.body)("id")
+        .not()
+        .isEmpty()
+        .withMessage("ID is required")
+        .trim()
+        .isString()
+        .withMessage("ID needs to be a valid uuid format"),
+    (0, express_validator_1.body)("status")
+        .trim()
+        .isIn([Status_1.Status.todo, Status_1.Status.inProgress, Status_1.Status.completed])
+        .withMessage("Status can only be to do, in progress or completed")
+];
+exports.deleteValidator = [
+    (0, express_validator_1.body)("id")
+        .not()
+        .isEmpty()
+        .withMessage("ID is required")
+        .trim()
+        .isString()
+        .withMessage("ID needs to be a valid uuid format")
 ];
