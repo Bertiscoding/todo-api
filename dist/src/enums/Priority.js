@@ -6,4 +6,4 @@ var Priority;
     Priority["high"] = "high";
     Priority["normal"] = "normal";
     Priority["low"] = "low";
-})(Priority = exports.Priority || (exports.Priority = {}));
+})(Priority || (exports.Priority = Priority = {}));

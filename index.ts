@@ -36,7 +36,7 @@ AppDataSource.initialize()
   .then(() => {
     // Start listening to requests
     app.listen(port);
-    console.log(`Data Source initialized. Listening on port ${process.env.PORT}`);
+    console.log(`Data Source initialized. Listening on port ${process.env.PORT}.`);
   }).catch((err) => console.error("Error during Data Source initialization:", err))
 
   app.use('/', tasksRouter) // whatever is defined in taskRouter will be added to default route ('/') 
