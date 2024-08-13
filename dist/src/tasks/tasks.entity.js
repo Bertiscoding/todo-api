@@ -11,16 +11,51 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Task = void 0;
 const typeorm_1 = require("typeorm");
-// import { Priority } from "../enums/Priority";
-// import { Status } from "../enums/Status";
+const Priority_1 = require("../enums/Priority");
+const Status_1 = require("../enums/Status");
 // used by TypeORM, not by the app
 let Task = class Task {
 };
-exports.Task = Task;
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
     __metadata("design:type", String)
 ], Task.prototype, "id", void 0);
-exports.Task = Task = __decorate([
+__decorate([
+    (0, typeorm_1.Column)({
+        type: "text",
+    }),
+    __metadata("design:type", String)
+], Task.prototype, "title", void 0);
+__decorate([
+    (0, typeorm_1.Column)({
+        type: "varchar",
+        length: 255
+    }),
+    __metadata("design:type", String)
+], Task.prototype, "date", void 0);
+__decorate([
+    (0, typeorm_1.Column)({
+        type: "longtext",
+    }),
+    __metadata("design:type", String)
+], Task.prototype, "description", void 0);
+__decorate([
+    (0, typeorm_1.Column)({
+        type: "enum",
+        enum: Priority_1.Priority,
+        default: Priority_1.Priority.normal
+    }),
+    __metadata("design:type", String)
+], Task.prototype, "priority", void 0);
+__decorate([
+    (0, typeorm_1.Column)({
+        type: "enum",
+        enum: Status_1.Status,
+        default: Status_1.Status.completed
+    }),
+    __metadata("design:type", String)
+], Task.prototype, "status", void 0);
+Task = __decorate([
     (0, typeorm_1.Entity)()
 ], Task);
+exports.Task = Task;

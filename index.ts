@@ -1,9 +1,10 @@
-import express, { Express, Request, Response } from "express";
+import express, { Express } from "express";
 import { DataSource } from "typeorm";
+import { Task } from "./src/tasks/tasks.entity";
+import { tasksRouter } from "./src/tasks/tasks.router";
 import dotenv from "dotenv";
 import cors from "cors";
 import bodyParser from "body-parser";
-import { Task } from "./src/tasks/tasks.entity";
 
 
 // Instantiate express app
@@ -31,15 +32,11 @@ export const AppDataSource = new DataSource({
 // Define server port
 const port = process.env.PORT;
 
-// Create default route
-app.get("/", (req: Request, res: Response)=>{
-  res.send("Helloooooo");
-});
-
 AppDataSource.initialize()
   .then(() => {
     // Start listening to requests
     app.listen(port);
-    console.log("Data Source has been initialized!");
+    console.log(`Data Source initialized. Listening on port ${process.env.PORT}`);
   }).catch((err) => console.error("Error during Data Source initialization:", err))
 
+  app.use('/', tasksRouter) // whatever is defined in taskRouter will be added to default route ('/') 
