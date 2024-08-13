@@ -39,15 +39,15 @@ class TasksController {
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const errors = (0, express_validator_1.validationResult)(req);
+            if (!errors.isEmpty()) {
+                return res.status(400).json({ errors: errors.array() });
+            }
             const newTask = new tasks_entity_1.Task();
             newTask.title = req.body.title;
             newTask.date = req.body.date;
             newTask.description = req.body.description;
             newTask.priority = req.body.priority;
             newTask.status = req.body.status;
-            if (!errors.isEmpty()) {
-                return res.status(400).json({ errors: errors.array() });
-            }
             let createdTask;
             try {
                 createdTask = yield __1.AppDataSource.getRepository(tasks_entity_1.Task).save(newTask);
@@ -55,6 +55,68 @@ class TasksController {
                 return res.json(createdTask).status(201);
             }
             catch (errors) {
+                return res.json({ error: "Internal Server Error!" }).status(500);
+            }
+        });
+    }
+    // PUT route
+    update(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const errors = (0, express_validator_1.validationResult)(req);
+            if (!errors.isEmpty()) {
+                return res.status(400).json({ errors: errors.array() });
+            }
+            // find task and get id
+            let task;
+            try {
+                task = yield __1.AppDataSource.getRepository(tasks_entity_1.Task).findOne({
+                    where: { id: req.body.id }
+                });
+            }
+            catch (error) {
+                return res.json({ error: "Internal Server Error!" }).status(500);
+            }
+            if (!task) {
+                return res.json({ error: "Task with given ID does not exist" }).status(404);
+            }
+            let updatedTask; // from TypeORM
+            try {
+                updatedTask = yield __1.AppDataSource.getRepository(tasks_entity_1.Task).update(req.body.id, (0, class_transformer_1.plainToInstance)(tasks_entity_1.Task, (0, class_transformer_1.plainToInstance)(tasks_entity_1.Task, {
+                    status: req.body.status
+                })));
+                updatedTask = (0, class_transformer_1.instanceToPlain)(updatedTask);
+                return res.json(updatedTask).status(200);
+            }
+            catch (error) {
+                return res.json({ error: "Internal Server Error!" }).status(500);
+            }
+        });
+    }
+    delete(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const errors = (0, express_validator_1.validationResult)(req);
+            if (!errors.isEmpty()) {
+                return res.status(400).json({ errors: errors.array() });
+            }
+            // find task and get id
+            let task;
+            try {
+                task = yield __1.AppDataSource.getRepository(tasks_entity_1.Task).findOne({
+                    where: { id: req.body.id }
+                });
+            }
+            catch (error) {
+                return res.json({ error: "Internal Server Error!" }).status(500);
+            }
+            if (!task) {
+                return res.json({ error: "Task with given ID does not exist" }).status(404);
+            }
+            let deletedTask;
+            try {
+                deletedTask = yield __1.AppDataSource.getRepository(tasks_entity_1.Task).delete(req.body.id);
+                return res.json(deletedTask).status(200);
+            }
+            catch (error) {
                 return res.json({ error: "Internal Server Error!" }).status(500);
             }
         });

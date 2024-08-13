@@ -31,5 +31,30 @@ export const createValidator: ValidationChain[] = [
   body("status")
     .trim()
     .isIn([Status.todo, Status.inProgress, Status.completed])
-    .withMessage("Status can only be to do, in progress or completed.")
+    .withMessage("Status can only be to do, in progress or completed")
 ];
+
+export const updateValidator: ValidationChain[] = [
+  body("id")
+    .not()
+    .isEmpty()
+    .withMessage("ID is required")
+    .trim()
+    .isString()
+    .withMessage("ID needs to be a valid uuid format"),
+  
+  body("status")
+    .trim()
+    .isIn([Status.todo, Status.inProgress, Status.completed])
+    .withMessage("Status can only be to do, in progress or completed")
+];
+
+export const deleteValidator: ValidationChain[] = [
+  body("id")
+  .not()
+  .isEmpty()
+  .withMessage("ID is required")
+  .trim()
+  .isString()
+  .withMessage("ID needs to be a valid uuid format")
+]
