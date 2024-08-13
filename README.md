@@ -4,4 +4,4 @@ Unopiniated Server using Express.js and Typescript for our [To-Do Tracker App](h
 
 ---
 
-Dev server is running on [http://localhost:3200/](http://localhost:3200/)
+Dev server is running on [http://localhost:3200/tasks](http://localhost:3200/tasks)
