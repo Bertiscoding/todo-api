@@ -16,6 +16,7 @@ const Status_1 = require("../enums/Status");
 // used by TypeORM, not by the app
 let Task = class Task {
 };
+exports.Task = Task;
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
     __metadata("design:type", String)
@@ -55,7 +56,6 @@ __decorate([
     }),
     __metadata("design:type", String)
 ], Task.prototype, "status", void 0);
-Task = __decorate([
+exports.Task = Task = __decorate([
     (0, typeorm_1.Entity)()
 ], Task);
-exports.Task = Task;
